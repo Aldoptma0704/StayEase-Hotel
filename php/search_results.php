@@ -46,45 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>StayEase Hotels</title>
     <link rel="stylesheet" href="../CSS/search_results.css">
 </head>
-
-<style>
-    .dropdown {
-        display: none;
-        position: absolute;
-        top: calc(100% + 10px);
-        right: 0; 
-        background-color: #d9d9d9;
-        border: 1px solid #042048;
-        color: #ABCDF6;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1;
-        min-width: 200px;
-        border-radius: 5px; 
-    }
-
-    .dropdown a {
-        display: block;
-        padding: 10px 20px;
-        text-decoration: none;
-        color: #042048;
-        border-radius: 5px;
-        border-bottom: 1px solid #042048;
-        font-weight: bold;
-    }
-
-    .dropdown a:hover {
-        background-color: #ABCDF6;
-        border-radius: 5px;
-    }
-
-    .dropdown a:last-child {
-        border-bottom: none; 
-    }
-
-    .dropdown.active {
-        display: block;
-    }
-</style>
 <body>
   <header style="margin-top: -3%; width: 100%;">
     <nav>

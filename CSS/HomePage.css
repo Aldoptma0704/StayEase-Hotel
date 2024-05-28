@@ -1,44 +1,44 @@
-/* Gaya Umum */
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
   background-color: #f5f5f5;
 }
 
-/* Gaya untuk header */
 header {
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   border-bottom: 2px solid #007bff;
-  padding: 10px 20px;
+  padding: 20px;
   position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
 nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  width: 1550px;
+  justify-content: center;
 }
 
 nav .logo {
-  height: 40px;
+  height: 30px;
+  position: absolute;
+  left: 20px;
 }
+
 nav ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   align-items: center;
 }
 
 nav ul li {
-  margin-left: 40px;
-}
-
-nav ul li.spacer {
-  flex-grow: 1;
+  margin-left: 20px;
 }
 
 nav ul li a {
@@ -53,79 +53,99 @@ nav ul li a:hover {
   border-radius: 5px;
 }
 
-nav .phone-icon {
+nav .icon {
   height: 40px;
-}
-/* Adjustments for Home and History links */
-nav ul li .home {
-  margin-left: 900px; /* Push Home link to the right */
+  position: absolute;
+  right: 20px;
 }
 
-nav ul li .history {
-  margin-right: auto; /* Push History link to the right */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: #d9d9d9;
+  border: 1px solid #042048;
+  color: #ABCDF6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  min-width: 200px;
+  border-radius: 5px;
 }
+
+.dropdown a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #042048;
+  border-bottom: 1px solid #042048;
+  font-weight: bold;
+}
+
+.dropdown a:hover {
+  background-color: #ABCDF6;
+}
+
+.dropdown a:last-child {
+  border-bottom: none;
+}
+
+.dropdown.active {
+  display: block;
+}
+
+
 .form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  margin-top: 100px;
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 50%;
-  margin-left: 400px;
+  max-width: 30%;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .form-group {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-right: 30px; /* Adjust this value for spacing between form groups */
-  position: relative;
-  flex: 1;
-  min-width: 200px;
-  box-sizing: border-box;
+  align-items: flex-start;
 }
-.form-group:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 50px;
-  background-color: #ccc;
+
+.form-group img{
+  margin-right: 20px;
 }
+
 .form-group label {
   margin-bottom: 5px;
-  white-space: nowrap;
-  align-self: start;
 }
+
 .form-group div {
   display: flex;
   align-items: center;
-  align-self: start;
+  width: 100%;
 }
+
 .form-group input,
 .form-group select {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 3px;
   width: 100%;
-  box-sizing: border-box;
 }
+
 .search-button {
-  background-color: #225abb;
-  color: white;
   padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  cursor: pointer;
-  text-align: center;
   border-radius: 3px;
-  white-space: nowrap;
-  align-self: flex-end;
+  cursor: pointer;
 }
 .search-button:hover {
-  background-color: #000000;
+  background-color: #005bbd;
 }
 .calendar-logo {
   margin-right: 5px;
