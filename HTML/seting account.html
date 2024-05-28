@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Information</title>
+    <link rel="stylesheet" href="../CSS/settingaccount.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="../IMG/Logo.png" alt="Logo" class="logo">
+            <ul>
+                <li><a href="Regist.html" class="home">Home</a></li>
+                <li><a href="#" class="history">History</a></li>
+                <li><a href="#" class="account-settings">Account Settings</a></li>
+            </ul>
+            <img src="../IMG/Phone.svg" alt="Phone" class="phone-icon">
+        </nav>
+    </header>
+
+    <div class="profile-container">
+        <h2>Profile Information</h2>
+        <form id="profileForm">
+            <div class="profile-details">
+                <div class="detail-item">
+                    <label for="firstName" class="label"><strong>First Name:</strong></label>
+                    <input type="text" id="firstName" name="firstName" class="value" value="Budiono">
+                </div>
+                <div class="detail-item">
+                    <label for="lastName" class="label"><strong>Last Name:</strong></label>
+                    <input type="text" id="lastName" name="lastName" class="value" value="Siregar">
+                </div>
+                <div class="detail-item">
+                    <label for="phone" class="label"><strong>Phone:</strong></label>
+                    <input type="tel" id="phone" name="phone" class="value" value="+628123456789">
+                </div>
+                <div class="detail-item">
+                    <label for="email" class="label"><strong>Email:</strong></label>
+                    <input type="email" id="email" name="email" class="value" value="BudionoSiregar@example.com">
+                </div>
+                <div class="detail-item">
+                    <label for="birthDate" class="label"><strong>Birth Date (MM-DD-YY):</strong></label>
+                    <input type="text" id="birthDate" name="birthDate" class="value" value="12/12/2012">
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button type="button" onclick="submitProfile()">Change Profile</button>
+                <button type="button" onclick="changePassword()">Change Password</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accommodation Booking</title>
+    <link rel="stylesheet" href="../CSS/Book Now.css">
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .overlay-content {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+        }
+        .overlay-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0; 
+  background-color: #d9d9d9;
+  border: 1px solid #042048;
+  color: #ABCDF6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  min-width: 200px;
+  border-radius: 5px; 
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #042048;
+  border-radius: 5px;
+  border-bottom: 1px solid #042048;
+  font-weight: bold;
+}
+
+.dropdown a:hover {
+  background-color: #ABCDF6;
+  border-radius: 5px;
+}
+
+.dropdown a:last-child {
+  border-bottom: none; 
+}
+
+.dropdown.active {
+  display: block;
+}
+    </style>
+</head>
+<body>
+  <header style="margin-top: -6%; width: 100%;">
+    <nav>
+        <img src="../IMG/logo.png" alt="Logo" class="logo">
+        <ul>
+            <li class="spacer"></li>
+            <li><a href="Regist.html" class="home" id="Home">Home</a></li>
+            <li><a href="#" class="history">History</a></li>
+        </ul>
+        <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
+        <div class="dropdown" id="dropdown-menu">
+              <a href="home.php">Home</a>
+              <a href="../HTML/ChangeAccount.php">Profil</a>
+              <a href="../HTML/change_password.php">Contact</a>
+              <a href="riwayat.php">Riwayat Booking</a>
+              <a href="index.html">Keluar</a>
+          </div>
+    </nav>
+</header>
+
+    <div class="container">
+        <div class="left-column">
+            <div class="hotel-info">
+                <img src="../IMG/Property 1.svg" alt="StayEase Hotel Lampung">
+                <div>StayEase Hotel Lampung</div>
+                <div>Jl. Kesambi No.7, Lempongsari, Gajah Terbang, Bandar Lampung, 50231, Lampung, Indonesia</div>
+            </div>
+            <div class="line"></div>
+            <div class="booking-details">
+                <div>My booking</div>
+                <div id="occupancy">Occupancy: 1 room</div>
+                <div id="check-in-out">Check-in: Thu, 09 May 2024 - 3:00 PM<br>Check-out: Fri, 10 May 2024 - 12:00 PM</div>
+                <div id="room-type">Superior Room</div>
+                <div>Without Breakfast</div>
+                <div class="line"></div>
+                <div>Room(s) held for 00:15:00</div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="logo">
+                <h2><img src="../IMG/Bosst.svg" alt="Company Logo"> Your booking is guaranteed for a limited time only.</h2>
+            </div>
+            <p>Make sure all the details on this page are correct before proceeding to payment.</p>
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="As in Passport/Official ID Card (without title/special characters)">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="We will send the e-voucher to this email.">
+            </div>
+            <div class="form-group mobile-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="text" id="mobileNumber" placeholder="0812345678">
+            </div>
+            <div class="form-group">
+                <label for="bedType">Bed Type</label>
+                <select id="bedType">
+                    <option value="1 King Bed">1 King Bed</option>
+                    <option value="2 Twin Bed">2 Twin Bed</option>
+                </select>
+            </div>
+            <div class="price-details">
+                <div id="room-price">Room Price: Rp 99</div>
+                <div>(1x) <span id="room-type-price">Superior Room</span> (1 night)</div>
+                <div id="other-taxes">Other Taxes and Fees: Rp 99</div>
+                <div class="line"></div>
+                <div id="total-price">Total Price: Rp 198</div>
+            </div>
+            <div class="continue-button">
+                <a href="#" id="continueButton">CONTINUE TO PAYMENT</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="confirmationOverlay">
+        <div class="overlay-content">
+            <p>Are the details correct?</p>
+            <button class="overlay-button" id="proceedButton">Proceed</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to get query parameter
+        function getQueryParam(param) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Retrieve booking details from URL parameters
+        document.getElementById('occupancy').innerHTML = "Occupancy: 1 room";
+        document.getElementById('check-in-out').innerHTML = `Check-in: ${getQueryParam('check_in')} - 3:00 PM<br>Check-out: ${getQueryParam('check_out')} - 12:00 PM`;
+        document.getElementById('room-type').innerHTML = getQueryParam('room_type');
+        document.getElementById('room-price').innerHTML = `Room Price: Rp ${getQueryParam('price')}`;
+        document.getElementById('room-type-price').innerHTML = `${getQueryParam('room_type')}`;
+        document.getElementById('other-taxes').innerHTML = `Other Taxes and Fees: Rp ${getQueryParam('price')}`;
+        document.getElementById('total-price').innerHTML = `Total Price: Rp ${2 * getQueryParam('price')}`;
+
+        // Overlay handling
+        document.getElementById('continueButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('confirmationOverlay').style.display = 'flex';
+        });
+
+        document.getElementById('proceedButton').addEventListener('click', function() {
+            const data = {
+                check_in: getQueryParam('check_in'),
+                check_out: getQueryParam('check_out'),
+                fullname: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('mobileNumber').value,
+                bed_type: document.getElementById('bedType').value
+            };
+
+            fetch('save_booking.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(data => {
+    if (data.status === "success") {
+        alert(data.message);
+        // Jika berhasil, pindah ke pay.php
+        window.location.href = 'pay.php';
+    } else {
+        alert(data.message);
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+
+
+            document.getElementById('confirmationOverlay').style.display = 'none';
+        });
+    </script>
+    <script src="../php/dropdown.js"></script> <!-- Include JavaScript file -->
+</body>
+</html>
