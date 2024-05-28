@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <ul>
             <li class="spacer"></li>
             <li><a href="Regist.html" class="home" id="Home">Home</a></li>
-            <li><a href="#" class="history">History</a></li>
+            <li><a href="history.php" class="history">History</a></li>
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">

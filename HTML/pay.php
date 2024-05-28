@@ -159,7 +159,7 @@ $conn->close();
             <ul>
                 <li class="spacer"></li>
                 <li><a href="../php/HomePage.php" class="home" id="Home">Home</a></li>
-                <li><a href="#" class="history">History</a></li>
+                <li><a href="../php/History.php" class="history">History</a></li>
             </ul>
             <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
             <div class="dropdown" id="dropdown-menu">

@@ -47,13 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../CSS/search_results.css">
 </head>
 <body>
-  <header style="margin-top: -3%; width: 100%;">
+<header style="margin-top: -3%; width: 100%;">
     <nav>
         <img src="../IMG/logo.png" alt="Logo" class="logo">
         <ul>
             <li class="spacer"></li>
             <li><a href="Regist.html" class="home" id="Home">Home</a></li>
-            <li><a href="#" class="history">History</a></li>
+            <li><a href="history.php" class="history">History</a></li>
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">
