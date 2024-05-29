@@ -128,32 +128,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <div class="welcome_section">
-  <img class="logo-image" src="../img/Room & Suites.png" alt="Logo">
+  <img class="logo-imagef" src="../img/explore.jpeg" alt="Logo">
 </div>
 
 <div class="container">
   <div class="large-box">
       <div class="image-container">
-          <img src="../img/Slide.svg" alt="Hotel Interior 1" class="lightbox-trigger">
+          <img src="../img/Slide2.svg" alt="Hotel Interior 1" class="lightbox-trigger">
           <div class="lightbox">
-              <img src="../img/Slide.svg" alt="Hotel Interior 1" class="lightbox-image">
+              <img src="../img/Slide2.svg" alt="Hotel Interior 1" class="lightbox-image">
           </div>
       </div>
   </div>
   <div class="small-box">
       <div class="box">
           <div class="image-container">
-              <img src="../img/Slide1.svg" alt="Hotel Interior 2" class="lightbox-trigger">
+              <img src="../img/Slide.svg" alt="Hotel Interior 2" class="lightbox-trigger">
               <div class="lightbox">
-                  <img src="../img/Slide1.svg" alt="Hotel Interior 2" class="lightbox-image">
+                  <img src="../img/Slide.svg" alt="Hotel Interior 2" class="lightbox-image">
               </div>
           </div>
       </div>
       <div class="box">
           <div class="image-container">
-              <img src="../img/Slide2.svg" alt="Hotel Gym" class="lightbox-trigger">
+              <img src="../img/restaurant.png" alt="Hotel Gym" class="lightbox-trigger">
               <div class="lightbox">
-                  <img src="../img/Slide2.svg" alt="Hotel Gym" class="lightbox-image">
+                  <img src="../img/restaurant.png" alt="Hotel Gym" class="lightbox-image">
               </div>
           </div>
       </div>
@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <div class="welcome_section">
-  <img class="logo-image" src="../IMG/Room & Suites.png" alt="Logo">
+  <img class="logo-imager" src="../IMG/explore2.jpeg" alt="Logo">
 </div>
 <div class="rooms-container">
   <div class="room-info">

@@ -444,8 +444,13 @@ button p {
   margin-top: 20px;
 }
 
-.logo-image {
-  width: 200px;
+.logo-imagef {
+  width: 170px;
+  height: auto;
+}
+
+.logo-imager {
+  width: 300px;
   height: auto;
 }
 
