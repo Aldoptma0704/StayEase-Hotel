@@ -56,11 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">
-              <a href="home.php">Home</a>
+              <a href="HomePage.php">Home</a>
               <a href="../HTML/ChangeAccount.php">Profil</a>
               <a href="../HTML/change_password.php">Contact</a>
-              <a href="riwayat.php">Riwayat Booking</a>
-              <a href="index.html">Keluar</a>
+              <a href="history.php">Riwayat Booking</a>
+              <a href="login.php">Keluar</a>
           </div>
     </nav>
 </header>
