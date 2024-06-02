@@ -2,6 +2,10 @@
 session_start();
 include('Koneksi.php');
 
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check_in = $_POST['check_in'];
     $check_out = $_POST['check_out'];
@@ -34,13 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result === false) {
         die('Execute failed: ' . htmlspecialchars($stmt->error));
     }
-    
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StayEase Hotels</title>
@@ -57,12 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">
-              <a href="home.php">Home</a>
-              <a href="../HTML/ChangeAccount.php">Profil</a>
-              <a href="../HTML/change_password.php">Contact</a>
-              <a href="riwayat.php">Riwayat Booking</a>
-              <a href="index.html">Keluar</a>
-          </div>
+            <a href="home.php">Home</a>
+            <a href="../HTML/ChangeAccount.php">Profil</a>
+            <a href="../HTML/change_password.php">Contact</a>
+            <a href="riwayat.php">Riwayat Booking</a>
+            <a href="index.html">Keluar</a>
+        </div>
     </nav>
 </header>
 
@@ -104,21 +107,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($result)) {
             if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
+                while ($row = $result->fetch_assoc()) {
                     $bookingUrl = "../HTML/Book Now.html?check_in=" . urlencode($check_in) . "&check_out=" . urlencode($check_out) . "&room_type=" . urlencode($row['room_type']) . "&price=" . urlencode($row['price_per_night']) . "&bed_type=" . urlencode($row['bed_type']) . "&max_guests=" . urlencode($row['max_guests']) . "&area=" . urlencode($row['area']);
+                    
+                    // Fetch and split image paths
+                    $image_paths = explode(',', $row['image']);
                     ?>
                     <div class="room-card">
                         <div class="room-image">
-                        <img src="../php/uploads/<?php echo $row['image']; ?>" alt="<?php echo $row['room_type']; ?>">
+                            <?php foreach ($image_paths as $image): ?>
+                                <img src="<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($row['room_type']); ?> ">
+                            <?php endforeach; ?>
                         </div>
                         <div class="room-details">
-                            <h2><?php echo $row['room_type']; ?></h2>
-                            <p class="description"><?php echo $row['description']; ?></p>
-                            <p class="price">Rp <?php echo $row['price_per_night']; ?> / night</p>
+                            <h2><?php echo htmlspecialchars($row['room_type']); ?></h2>
+                            <p class="description"><?php echo htmlspecialchars($row['description']); ?></p>
+                            <p class="price">Rp <?php echo htmlspecialchars($row['price_per_night']); ?> / night</p>
                             <div class="features">
-                                <div class="feature"><p><?php echo $row['bed_type']; ?></p></div>
-                                <div class="feature"><p><?php echo $row['max_guests']; ?> guests</p></div>
-                                <div class="feature"><p><?php echo $row['area']; ?> m²</p></div>
+                                <div class="feature"><p><?php echo htmlspecialchars($row['bed_type']); ?></p></div>
+                                <div class="feature"><p><?php echo htmlspecialchars($row['max_guests']); ?> guests</p></div>
+                                <div class="feature"><p><?php echo htmlspecialchars($row['area']); ?> m²</p></div>
                             </div>
                             <div class="buttons">
                                 <button><p>Shower</p></button>
@@ -138,78 +146,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
-
-</div>
 <h2>Key Features</h2>
-  <div class="footer">
+<div class="footer">
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/Meeting rooms.svg" alt="Meeting Rooms">
-          <p>Meeting rooms</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/Meeting rooms.svg" alt="Meeting Rooms">
+                <p>Meeting rooms</p>
+            </div>
+        </button>
     </div>
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/person max. capacity.svg" alt="1,500 person max. capacity">
-          <p>1,500 person max. capacity</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/person max. capacity.svg" alt="1,500 person max. capacity">
+                <p>1,500 person max. capacity</p>
+            </div>
+        </button>
     </div>
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/Ballroom pre-function area.svg" alt="Ballroom pre-function area">
-          <p>Ballroom pre-function area</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/Ballroom pre-function area.svg" alt="Ballroom pre-function area">
+                <p>Ballroom pre-function area</p>
+            </div>
+        </button>
     </div>
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/Catering Service.svg" alt="Catering Service">
-          <p>Catering Service</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/Catering Service.svg" alt="Catering Service">
+                <p>Catering Service</p>
+            </div>
+        </button>
     </div>
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/Free Wi-Fi.svg" alt="Free Wi-Fi">
-          <p>Free Wi-Fi</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/Free Wi-Fi.svg" alt="Free Wi-Fi">
+                <p>Free Wi-Fi</p>
+            </div>
+        </button>
     </div>
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/Wedding and event coordinator.svg" alt="Wedding and event coordinator">
-          <p>Wedding and event coordinator</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/Wedding and event coordinator.svg" alt="Wedding and event coordinator">
+                <p>Wedding and event coordinator</p>
+            </div>
+        </button>
     </div>
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/Reception.svg" alt="Reception">
-          <p>Reception</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/Reception.svg" alt="Reception">
+                <p>Reception</p>
+            </div>
+        </button>
     </div>
     <div class="feature-column">
-      <button>
-        <div class="feature-content">
-          <img src="../IMG/Theater.svg" alt="Theater">
-          <p>Theater</p>
-        </div>
-      </button>
+        <button>
+            <div class="feature-content">
+                <img src="../IMG/Theater.svg" alt="Theater">
+                <p>Theater</p>
+            </div>
+        </button>
     </div>
-  </div>
+</div>
 
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../JS/Home Page.js"></script>
-    <script src="../php/dropdown.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../JS/Home Page.js"></script>
 </body>
 </html>

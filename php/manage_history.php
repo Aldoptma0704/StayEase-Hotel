@@ -1,19 +1,11 @@
 <?php
-session_start();
-if (!isset($_SESSION['login_user']) || !$_SESSION['is_admin']) {
-    header("location: login.php");
-}
-
+// Lakukan koneksi ke database
 include('Koneksi.php');
 
-// Handle delete booking
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $conn->query("DELETE FROM bookings WHERE id=$id");
-}
+// Query untuk mengambil data dari tabel bookings
+$sql = "SELECT * FROM bookings";
+$result = $conn->query($sql);
 
-// Fetch bookings data
-$bookings = $conn->query("SELECT bookings.*, users.username FROM bookings JOIN users ON bookings.user_id = users.id");
 ?>
 
 <!DOCTYPE html>
@@ -42,27 +34,38 @@ $bookings = $conn->query("SELECT bookings.*, users.username FROM bookings JOIN u
     <table>
         <tr>
             <th>ID</th>
-            <th>Username</th>
-            <th>Room Type</th>
             <th>Check In</th>
             <th>Check Out</th>
-            <th>Price</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Bed Type</th>
+            <th>Booking Date</th>
             <th>Actions</th>
         </tr>
-        <?php while($row = $bookings->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['username']; ?></td>
-            <td><?php echo $row['room_type']; ?></td>
-            <td><?php echo $row['check_in']; ?></td>
-            <td><?php echo $row['check_out']; ?></td>
-            <td><?php echo $row['price']; ?></td>
-            <td>
-                <a href="edit_booking.php?id=<?php echo $row['id']; ?>">Edit</a>
-                <a href="manage_bookings.php?delete=<?php echo $row['id']; ?>">Delete</a>
-            </td>
-        </tr>
-        <?php endwhile; ?>
+        <?php
+        // Periksa apakah ada hasil dari query
+        if ($result->num_rows > 0) {
+            // Tampilkan setiap baris data sebagai row dalam tabel
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["id"] . "</td>";
+                echo "<td>" . $row["check_in"] . "</td>";
+                echo "<td>" . $row["check_out"] . "</td>";
+                echo "<td>" . $row["fullname"] . "</td>";
+                echo "<td>" . $row["email"] . "</td>";
+                echo "<td>" . $row["phone"] . "</td>";
+                echo "<td>" . $row["bed_type"] . "</td>";
+                echo "<td>" . $row["booking_date"] . "</td>";
+                echo "<td>"; // Mulai kolom untuk tombol aksi
+                echo "<button onclick=\"deleteBooking(" . $row["id"] . ")\">Delete</button>";
+                echo "</td>"; // Akhiri kolom untuk tombol aksi
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='9'>No bookings found.</td></tr>";
+        }
+        ?>
     </table>
     <a href="dashboard.php">Back to Dashboard</a>
 </body>
