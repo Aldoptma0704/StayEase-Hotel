@@ -55,12 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img src="../IMG/logo.png" alt="Logo" class="logo">
         <ul>
             <li class="spacer"></li>
-            <li><a href="Regist.html" class="home" id="Home">Home</a></li>
+            <li><a href="HomePage.php" class="home" id="Home">Home</a></li>
             <li><a href="history.php" class="history">History</a></li>
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">
-            <a href="home.php">Home</a>
+            <a href="HomePage.php">Home</a>
             <a href="../HTML/ChangeAccount.php">Profil</a>
             <a href="../HTML/change_password.php">Contact</a>
             <a href="riwayat.php">Riwayat Booking</a>
@@ -216,5 +216,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../JS/Home Page.js"></script>
+<script src="../php/dropdown.js"></script> <!-- Include JavaScript file -->
 </body>
 </html>

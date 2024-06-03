@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img src="../IMG/logo.png" alt="Logo" class="logo">
         <ul>
             <li class="spacer"></li>
-            <li><a href="Regist.html" class="home" id="Home">Home</a></li>
+            <li><a href="HomePage.php" class="home" id="Home">Home</a></li>
             <li><a href="history.php" class="history">History</a></li>
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">

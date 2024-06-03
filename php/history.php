@@ -23,14 +23,14 @@ $result = $conn->query($sql);
             <ul>
                 <li class="spacer"></li>
                 <li><a href="../php/HomePage.php" class="home" id="Home">Home</a></li>
-                <li><a href="#" class="history">History</a></li>
+                <li><a href="history.php" class="history">History</a></li>
             </ul>
             <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
             <div class="dropdown" id="dropdown-menu">
-                <a href="home.php">Home</a>
+                <a href="HomePage.php">Home</a>
                 <a href="../HTML/ChangeAccount.php">Profil</a>
                 <a href="../HTML/change_password.php">Contact</a>
-                <a href="riwayat.php">Riwayat Booking</a>
+                <a href="history.php">Riwayat Booking</a>
                 <a href="index.html">Keluar</a>
             </div>
         </nav>
@@ -67,7 +67,6 @@ $result = $conn->query($sql);
                     echo "<td>" . $row["booking_date"] . "</td>";
                     echo "<td>"; // Mulai kolom untuk tombol aksi
                     echo "<button onclick=\"refundBooking(" . $row["id"] . ")\">Refund</button>";
-                    echo "<button onclick=\"rescheduleBooking(" . $row["id"] . ")\">Reschedule</button>";
                     echo "</td>"; // Akhiri kolom untuk tombol aksi
                     echo "</tr>";
                 }
@@ -100,28 +99,7 @@ $result = $conn->query($sql);
             xhr.send("booking_id=" + bookingId);
         }
     }
-
-        // Fungsi JavaScript untuk melakukan reschedule
-        function rescheduleBooking(bookingId) {
-            // Konfirmasi reschedule dari pengguna
-            if(confirm("Apakah Anda yakin ingin melakukan reschedule untuk booking ID " + bookingId + "?")) {
-                // Kirim AJAX request untuk memanggil skrip PHP reschedule
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "reschedule.php", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        // Tampilkan pesan keberhasilan reschedule dari respons PHP
-                        alert(xhr.responseText);
-                        // Refresh halaman untuk memperbarui riwayat
-                        window.location.reload();
-                    }
-                };
-                // Kirim data booking_id ke skrip PHP reschedule
-                xhr.send("booking_id=" + bookingId);
-            }
-        }
-
     </script>
+     <script src="dropdown.js"></script> <!-- Include JavaScript file -->
 </body>
 </html>

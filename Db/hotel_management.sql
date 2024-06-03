@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Bulan Mei 2024 pada 11.40
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.0.28
+-- Waktu pembuatan: 03 Jun 2024 pada 13.38
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,26 +36,16 @@ CREATE TABLE `bookings` (
   `phone` varchar(20) DEFAULT NULL,
   `bed_type` varchar(100) DEFAULT NULL,
   `booking_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `bukti_pembayaran` text NOT NULL
+  `bukti_pembayaran` text NOT NULL,
+  `room_type` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `check_in`, `check_out`, `fullname`, `email`, `phone`, `bed_type`, `booking_date`, `bukti_pembayaran`) VALUES
-(1, '2024-01-01', '2024-01-02', 'rpik', 'qquwg@nb.dfbd', '264268612965', '1 King Bed', '2024-05-26 02:26:54', 'Frame 8.jpg'),
-(2, '2024-01-01', '2024-01-02', 'dsrger', 'sdgerh@fhdth.dhdht', '12121255', '1 King Bed', '2024-05-26 02:35:55', ''),
-(3, '2024-01-01', '2024-01-02', 'dsrger', 'sdgerh@fhdth.dhdht', '12121255', '1 King Bed', '2024-05-26 02:36:08', ''),
-(6, NULL, NULL, '', '', '', '1 King Bed', '2024-05-28 02:24:57', ''),
-(7, NULL, NULL, '', '', '', '1 King Bed', '2024-05-28 02:36:51', ''),
-(8, '2024-01-01', '2024-01-02', 'pler', 'pler@tytyd.crt', '08089668578557', '1 King Bed', '2024-05-28 03:07:54', ''),
-(9, '2024-01-01', '2024-01-02', 'pler', 'pler@tytyd.crt', '08089668578557', '1 King Bed', '2024-05-28 03:07:58', ''),
-(10, '2024-01-01', '2024-01-02', 'pler', 'pler@tytyd.crt', '08089668578557', '1 King Bed', '2024-05-28 03:13:38', ''),
-(11, '2024-01-01', '2024-01-02', 'p', 'y@w.m', '0', '1 King Bed', '2024-05-28 03:15:11', ''),
-(12, '2024-01-01', '2024-01-02', 'p', 'p@m.m', '0', '1 King Bed', '2024-05-28 03:16:45', 'History.jpg'),
-(13, NULL, NULL, '', '', '', '1 King Bed', '2024-05-28 04:28:34', ''),
-(14, '2024-01-01', '2024-01-02', '', '', '', '1 King Bed', '2024-05-28 04:36:37', 'History.svg');
+INSERT INTO `bookings` (`id`, `check_in`, `check_out`, `fullname`, `email`, `phone`, `bed_type`, `booking_date`, `bukti_pembayaran`, `room_type`) VALUES
+(16, '2024-01-04', '2024-01-02', 'Aldo ', 'aldopratama0707@gmail.com', '0812345678', '2 Twin Bed', '2024-06-03 04:08:10', 'stayease.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -183,7 +173,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `rooms`

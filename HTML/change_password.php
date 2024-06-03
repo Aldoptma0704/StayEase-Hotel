@@ -9,13 +9,20 @@
 <body>
     <header>
         <nav>
-            <img src="../IMG/Logo.png" alt="Logo" class="logo">
+            <img src="../IMG/logo.png" alt="Logo" class="logo">
             <ul>
-                <li><a href="Regist.html" class="home">Home</a></li>
-                <li><a href="#" class="history">History</a></li>
-                <li><a href="#" class="change-password">Change Password</a></li>
+                <li class="spacer"></li>
+                <li><a href="../php/HomePage.php" class="home" id="Home">Home</a></li>
+                <li><a href="../php/history.php" class="history">History</a></li>
             </ul>
-            <img src="../IMG/Phone.svg" alt="Phone" class="phone-icon">
+            <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
+            <div class="dropdown" id="dropdown-menu">
+                <a href="../php/HomePage.php">Home</a>
+                <a href="../HTML/ChangeAccount.php">Profil</a>
+                <a href="../HTML/change_password.php">Contact</a>
+                <a href="../php/history.php">Riwayat Booking</a>
+                <a href="login.php">Keluar</a>
+            </div>
         </nav>
     </header>
 
@@ -44,6 +51,6 @@
         <?php if (!empty($success)) { echo "<p class='success'>$success</p>"; } ?>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../php/dropdown.js"></script> <!-- Include JavaScript file -->
 </body>
 </html>
