@@ -175,7 +175,7 @@ $conn->close();
     <div class="container">
         <div class="right-column">
             <div class="hotel-info">
-                <img src="../IMG/Property 1.svg" alt="StayEase Hotel Lampung">
+                <img src="../IMG/pay.png" alt="StayEase Hotel Lampung">
                 <div>StayEase Hotel Lampung</div>
                 <div>Jl. Kesambi No.7, Lempongsari, Gajah Terbang, Bandar Lampung, 50231, Lampung, Indonesia</div>
             </div>

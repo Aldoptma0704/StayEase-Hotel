@@ -101,13 +101,27 @@ $result = $conn->query($sql);
         }
     }
 
-
         // Fungsi JavaScript untuk melakukan reschedule
         function rescheduleBooking(bookingId) {
-            // Panggil fungsi PHP untuk melakukan reschedule
-            // Contoh: window.location.href = 'reschedule.php?booking_id=' + bookingId;
-            alert('Reschedule booking with ID ' + bookingId);
+            // Konfirmasi reschedule dari pengguna
+            if(confirm("Apakah Anda yakin ingin melakukan reschedule untuk booking ID " + bookingId + "?")) {
+                // Kirim AJAX request untuk memanggil skrip PHP reschedule
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "reschedule.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // Tampilkan pesan keberhasilan reschedule dari respons PHP
+                        alert(xhr.responseText);
+                        // Refresh halaman untuk memperbarui riwayat
+                        window.location.reload();
+                    }
+                };
+                // Kirim data booking_id ke skrip PHP reschedule
+                xhr.send("booking_id=" + bookingId);
+            }
         }
+
     </script>
 </body>
 </html>
