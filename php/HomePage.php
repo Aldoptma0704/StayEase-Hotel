@@ -113,12 +113,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="form-group">
         <label for="rooms">Rooms</label>
-        <select id="rooms" name="rooms">
-            <option value="1">Superior Room</option>
-            <option value="2">Deluxe Room</option>
-            <option value="3">Junior Room</option>
-            <option value="4">Executive Suite</option>
-            <option value="5">Executive Studio</option>
+        <select id="room" name="rooms" required>
+          <option value="1">Superior Room</option>
+          <option value="2">Deluxe Room</option>
+          <option value="3">Junior Suite</option>
+          <option value="4">Executive Suite</option>
+          <option value="5">Executive Studio</option>
         </select>
     </div>
 
@@ -203,7 +203,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 3.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Superior Room</h2>
@@ -234,7 +233,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 2.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Deluxe Room</h2>
@@ -264,7 +262,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 1.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Junior suite</h2>
@@ -294,7 +291,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 4.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Executive suite</h2>
@@ -324,7 +320,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 1.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Deluxe Room</h2>
@@ -354,7 +349,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 2.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Deluxe Room</h2>
