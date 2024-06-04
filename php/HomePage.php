@@ -113,12 +113,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="form-group">
         <label for="rooms">Rooms</label>
-        <select id="room" name="rooms" required>
-          <option value="1">Superior Room</option>
-          <option value="2">Deluxe Room</option>
-          <option value="3">Junior Suite</option>
-          <option value="4">Executive Suite</option>
-          <option value="5">Executive Studio</option>
+        <select id="rooms" name="rooms">
+            <option value="1">Superior Room</option>
+            <option value="2">Deluxe Room</option>
+            <option value="3">Junior Room</option>
+            <option value="4">Executive Suite</option>
+            <option value="5">Executive Studio</option>
         </select>
     </div>
 
