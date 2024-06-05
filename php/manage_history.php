@@ -2,11 +2,28 @@
 // Lakukan koneksi ke database
 include('Koneksi.php');
 
+// Jika ada request POST untuk mengkonfirmasi pesanan
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_booking'])) {
+    // Ambil ID pemesanan yang akan dikonfirmasi
+    $booking_id = $_POST['booking_id'];
+
+    // Query untuk mengupdate status pemesanan menjadi "Confirmed"
+    $update_sql = "UPDATE bookings SET payment_status = 'Confirmed' WHERE id = $booking_id";
+    
+    if ($conn->query($update_sql) === TRUE) {
+        // Redirect kembali ke halaman ini setelah berhasil mengkonfirmasi
+        header("Location: manage_history.php");
+        exit();
+    } else {
+        echo "Error updating record: " . $conn->error;
+    }
+}
+
 // Query untuk mengambil data dari tabel bookings
 $sql = "SELECT * FROM bookings";
 $result = $conn->query($sql);
-
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -58,7 +75,11 @@ $result = $conn->query($sql);
                 echo "<td>" . $row["bed_type"] . "</td>";
                 echo "<td>" . $row["booking_date"] . "</td>";
                 echo "<td>"; // Mulai kolom untuk tombol aksi
-                echo "<button onclick=\"deleteBooking(" . $row["id"] . ")\">Delete</button>";
+                echo "<form method='post'>";
+                echo "<input type='hidden' name='booking_id' value='" . $row["id"] . "'>";
+                echo "<button type='submit' name='confirm_booking'>Confirm</button>"; // Tombol "Confirm" dengan tipe submit
+                echo "<button onclick=\"deleteBooking(" . $row["id"] . ")\">Delete</button>"; // Tombol "Delete"
+                echo "</form>";
                 echo "</td>"; // Akhiri kolom untuk tombol aksi
                 echo "</tr>";
             }

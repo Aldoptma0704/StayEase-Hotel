@@ -47,11 +47,12 @@ $result = $conn->query($sql);
                 <th>Phone</th>
                 <th>Bed Type</th>
                 <th>Booking Date</th>
-                <th>Action</th> <!-- Kolom tambahan untuk tombol aksi -->
+                <th>Payment Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <?php
+        <?php
             // Periksa apakah ada hasil dari query
             if ($result->num_rows > 0) {
                 // Tampilkan setiap baris data sebagai row dalam tabel
@@ -65,13 +66,16 @@ $result = $conn->query($sql);
                     echo "<td>" . $row["phone"] . "</td>";
                     echo "<td>" . $row["bed_type"] . "</td>";
                     echo "<td>" . $row["booking_date"] . "</td>";
-                    echo "<td>"; // Mulai kolom untuk tombol aksi
+                    // Kolom untuk status pembayaran
+                    echo "<td>" . $row["payment_status"] . "</td>";
+                    echo "<td>";
                     echo "<button onclick=\"refundBooking(" . $row["id"] . ")\">Refund</button>";
-                    echo "</td>"; // Akhiri kolom untuk tombol aksi
+                    echo "</td>";
                     echo "</tr>";
+                    
                 }
             } else {
-                echo "<tr><td colspan='9'>No bookings found.</td></tr>";
+                echo "<tr><td colspan='10'>No bookings found.</td></tr>";
             }
             ?>
         </tbody>

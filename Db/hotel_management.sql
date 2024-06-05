@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jun 2024 pada 13.38
+-- Waktu pembuatan: 05 Jun 2024 pada 19.34
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -37,15 +37,18 @@ CREATE TABLE `bookings` (
   `bed_type` varchar(100) DEFAULT NULL,
   `booking_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `bukti_pembayaran` text NOT NULL,
-  `room_type` varchar(50) DEFAULT NULL
+  `room_type` varchar(50) DEFAULT NULL,
+  `payment_status` varchar(50) NOT NULL DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `check_in`, `check_out`, `fullname`, `email`, `phone`, `bed_type`, `booking_date`, `bukti_pembayaran`, `room_type`) VALUES
-(16, '2024-01-04', '2024-01-02', 'Aldo ', 'aldopratama0707@gmail.com', '0812345678', '2 Twin Bed', '2024-06-03 04:08:10', 'stayease.png', NULL);
+INSERT INTO `bookings` (`id`, `check_in`, `check_out`, `fullname`, `email`, `phone`, `bed_type`, `booking_date`, `bukti_pembayaran`, `room_type`, `payment_status`) VALUES
+(16, '2024-01-04', '2024-01-02', 'Aldo ', 'aldopratama0707@gmail.com', '0812345678', '2 Twin Bed', '2024-06-03 04:08:10', 'stayease.png', NULL, 'Confirmed'),
+(27, '2024-01-01', '2024-01-02', '', '', '', '1 King Bed', '2024-06-05 12:06:48', '', NULL, 'Pending'),
+(28, '2024-01-01', '2024-01-02', 'budi', 'wow@sharklasers.com', '0812345678', '1 King Bed', '2024-06-05 12:11:09', 'stayease.png', NULL, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -173,7 +176,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `rooms`
