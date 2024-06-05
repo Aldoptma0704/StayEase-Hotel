@@ -213,7 +213,6 @@ $conn->close();
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 3.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Superior Room</h2>
@@ -244,7 +243,6 @@ $conn->close();
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 2.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Deluxe Room</h2>
@@ -274,7 +272,6 @@ $conn->close();
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 1.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Junior suite</h2>
@@ -304,7 +301,6 @@ $conn->close();
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 4.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Executive suite</h2>
@@ -334,7 +330,6 @@ $conn->close();
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 1.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Deluxe Room</h2>
@@ -364,7 +359,6 @@ $conn->close();
   <div class="room-info">
     <div class="room-image">
       <img src="../IMG/Property 2.svg" alt="Gambar kamar hotel" class="lightbox-trigger">
-      <p>Lobby Bar And Lounge</p>
     </div>
     <div class="room-details">
       <h2>Deluxe Room</h2>
