@@ -4,15 +4,20 @@ include('Koneksi.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check_in = $_POST['check_in'];
     $check_out = $_POST['check_out'];
-    $rooms = $_POST['rooms'];
+    $room_type = $_POST['rooms'];
 
-    // Query untuk mendapatkan kamar yang tersedia
-    $sql = "SELECT * FROM rooms WHERE id NOT IN (
-                SELECT room_id FROM room_availability 
-                WHERE (check_in <= '$check_out' AND check_out >= '$check_in')
-            ) LIMIT $rooms";
+    // Prepare and bind
+    $stmt = $conn->prepare("SELECT * FROM rooms WHERE room_type = ? AND id NOT IN (
+                                SELECT room_id FROM room_availability 
+                                WHERE (check_in <= ? AND check_out >= ?)
+                            )");
+    $stmt->bind_param("sss", $room_type, $check_out, $check_in);
 
-    $result = $conn->query($sql);
+    // Execute statement
+    $stmt->execute();
+
+    // Get result
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         echo "<h2>Kamar Tersedia</h2>";
@@ -32,9 +37,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Tidak ada kamar yang tersedia untuk tanggal yang dipilih.";
     }
-}
-?>
 
+    // Close statement
+    $stmt->close();
+}
+
+// Close connection
+$conn->close();
+?>
 
 
 <!DOCTYPE html>
@@ -452,18 +462,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="../JS/Home Page.js"></script> <!-- Include JavaScript file -->
 </body>
 </html>
-
-
-
-<?php
-$sarvername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hotel_management";
-
-$conn = new mysqli($sarvername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-?>

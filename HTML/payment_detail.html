@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Payment Details</title>
+    <link rel="stylesheet" href="../CSS/payment_detail.css">
+</head>
+<body>
+    <header style="margin-top: -6%; width: 100%;">
+        <nav>
+            <img src="../IMG/logo.png" alt="Logo" class="logo">
+            <ul>
+                <li class="spacer"></li>
+                <li><a href="../php/HomePage.php" class="home" id="Home">Home</a></li>
+                <li><a href="../php/history.php" class="history">History</a></li>
+            </ul>
+            <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
+            <div class="dropdown" id="dropdown-menu">
+                <a href="home.php">Home</a>
+                <a href="../HTML/ChangeAccount.php">Profil</a>
+                <a href="../HTML/change_password.php">Contact</a>
+                <a href="riwayat.php">Riwayat Booking</a>
+                <a href="index.html">Keluar</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="payment-details">
+            <h2>Hotel Payment Details</h2>
+            <p>Please transfer the total amount to the following bank account:</p>
+            <div class="bank-details">
+                <div class="bank-name">Bank Central Lampung</div>
+                <div class="account-number">Account Number: 1234 5678 9012</div>
+                <div class="account-name">Account Name: StayEase Hotel Lampung</div>
+            </div>
+            <p>Once the transfer is completed, please keep the transaction receipt for reference.</p>
+            <p>Your booking will be confirmed once the payment is received.</p>
+            <a href="pay.php" class="back-to-home">Upload Payment Proof</a>
+        </div>
+    </div>
+
+    <script src="../JS/norekening.js"></script>
+</body>
+</html>

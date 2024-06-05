@@ -73,7 +73,7 @@
     </style>
 </head>
 <body>
-  <header style="margin-top: -6%; width: 100%;">
+<header style="margin-top: -6%; width: 100%;">
     <nav>
         <img src="../IMG/logo.png" alt="Logo" class="logo">
         <ul>
@@ -83,135 +83,143 @@
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">
-              <a href="home.php">Home</a>
-              <a href="../HTML/ChangeAccount.php">Profil</a>
-              <a href="../HTML/change_password.php">Contact</a>
-              <a href="riwayat.php">Riwayat Booking</a>
-              <a href="index.html">Keluar</a>
-          </div>
+            <a href="home.php">Home</a>
+            <a href="../HTML/ChangeAccount.php">Profil</a>
+            <a href="../HTML/change_password.php">Contact</a>
+            <a href="riwayat.php">Riwayat Booking</a>
+            <a href="index.html">Keluar</a>
+        </div>
     </nav>
 </header>
 
-    <div class="container">
-        <div class="left-column">
-            <div class="hotel-info">
-                <img src="../IMG/pay.png" alt="StayEase Hotel Lampung">
-                <div>StayEase Hotel Lampung</div>
-                <div>Jl. Kesambi No.7, Lempongsari, Gajah Terbang, Bandar Lampung, 50231, Lampung, Indonesia</div>
-            </div>
+<div class="container">
+    <div class="left-column">
+        <div class="hotel-info">
+            <img src="../IMG/pay.png" alt="StayEase Hotel Lampung">
+            <div>StayEase Hotel Lampung</div>
+            <div>Jl. Kesambi No.7, Lempongsari, Gajah Terbang, Bandar Lampung, 50231, Lampung, Indonesia</div>
+        </div>
+        <div class="line"></div>
+        <div class="booking-details">
+            <div>My booking</div>
+            <div id="occupancy">Occupancy: 1 room</div>
+            <div id="check-in-out">Check-in: Thu, 09 May 2024 - 3:00 PM<br>Check-out: Fri, 10 May 2024 - 12:00 PM</div>
+            <div id="room-type">Superior Room</div>
+            <div>Without Breakfast</div>
             <div class="line"></div>
-            <div class="booking-details">
-                <div>My booking</div>
-                <div id="occupancy">Occupancy: 1 room</div>
-                <div id="check-in-out">Check-in: Thu, 09 May 2024 - 3:00 PM<br>Check-out: Fri, 10 May 2024 - 12:00 PM</div>
-                <div id="room-type">Superior Room</div>
-                <div>Without Breakfast</div>
-                <div class="line"></div>
-                <div>Room(s) held for 00:15:00</div>
-            </div>
-        </div>
-
-        <div class="right-column">
-            <div class="logo">
-                <h2><img src="../IMG/Bosst.svg" alt="Company Logo"> Your booking is guaranteed for a limited time only.</h2>
-            </div>
-            <p>Make sure all the details on this page are correct before proceeding to payment.</p>
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" placeholder="As in Passport/Official ID Card (without title/special characters)">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" placeholder="We will send the e-voucher to this email.">
-            </div>
-            <div class="form-group mobile-group">
-                <label for="mobileNumber">Mobile Number</label>
-                <input type="text" id="mobileNumber" placeholder="0812345678">
-            </div>
-            <div class="form-group">
-                <label for="bedType">Bed Type</label>
-                <select id="bedType">
-                    <option value="1 King Bed">1 King Bed</option>
-                    <option value="2 Twin Bed">2 Twin Bed</option>
-                </select>
-            </div>
-            <div class="price-details">
-                <div id="room-price">Room Price: Rp 99</div>
-                <div>(1x) <span id="room-type-price">Superior Room</span> (1 night)</div>
-                <div id="other-taxes">Other Taxes and Fees: Rp 99</div>
-                <div class="line"></div>
-                <div id="total-price">Total Price: Rp 198</div>
-            </div>
-            <div class="continue-button">
-                <a href="#" id="continueButton">CONTINUE TO PAYMENT</a>
-            </div>
+            <div>Room(s) held for 00:15:00</div>
         </div>
     </div>
 
-    <div class="overlay" id="confirmationOverlay">
-        <div class="overlay-content">
-            <p>Are the details correct?</p>
-            <button class="overlay-button" id="proceedButton">Proceed</button>
+    <div class="right-column">
+        <div class="logo">
+            <h2><img src="../IMG/Bosst.svg" alt="Company Logo"> Your booking is guaranteed for a limited time only.</h2>
+        </div>
+        <p>Make sure all the details on this page are correct before proceeding to payment.</p>
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" placeholder="As in Passport/Official ID Card (without title/special characters)">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="We will send the e-voucher to this email.">
+        </div>
+        <div class="form-group mobile-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" id="mobileNumber" placeholder="0812345678">
+        </div>
+        <div class="form-group">
+            <label for="bedType">Bed Type</label>
+            <select id="bedType">
+                <option value="1 King Bed">1 King Bed</option>
+                <option value="2 Twin Bed">2 Twin Bed</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="paymentMethod">Payment Method</label>
+            <select id="paymentMethod">
+                <option value="Credit Card">Credit Card</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="PayPal">PayPal</option>
+            </select>
+        </div>
+        <div class="price-details">
+            <div id="room-price">Room Price: Rp 99</div>
+            <div>(1x) <span id="room-type-price">Superior Room</span> (1 night)</div>
+            <div id="other-taxes">Other Taxes and Fees: Rp 99</div>
+            <div class="line"></div>
+            <div id="total-price">Total Price: Rp 198</div>
+        </div>
+        <div class="continue-button">
+            <a href="#" id="continueButton">CONTINUE TO PAYMENT</a>
         </div>
     </div>
+</div>
 
-    <script>
-        // Function to get query parameter
-        function getQueryParam(param) {
-            let urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+<div class="overlay" id="confirmationOverlay">
+    <div class="overlay-content">
+        <p>Are the details correct?</p>
+        <button class="overlay-button" id="proceedButton">Proceed</button>
+    </div>
+</div>
 
-        // Retrieve booking details from URL parameters
-        document.getElementById('occupancy').innerHTML = "Occupancy: 1 room";
-        document.getElementById('check-in-out').innerHTML = `Check-in: ${getQueryParam('check_in')} - 3:00 PM<br>Check-out: ${getQueryParam('check_out')} - 12:00 PM`;
-        document.getElementById('room-type').innerHTML = getQueryParam('room_type');
-        document.getElementById('room-price').innerHTML = `Room Price: Rp ${getQueryParam('price')}`;
-        document.getElementById('room-type-price').innerHTML = `${getQueryParam('room_type')}`;
-        document.getElementById('other-taxes').innerHTML = `Other Taxes and Fees: Rp ${getQueryParam('price')}`;
-        document.getElementById('total-price').innerHTML = `Total Price: Rp ${2 * getQueryParam('price')}`;
-
-        // Overlay handling
-        document.getElementById('continueButton').addEventListener('click', function(event) {
-            event.preventDefault();
-            document.getElementById('confirmationOverlay').style.display = 'flex';
-        });
-
-        document.getElementById('proceedButton').addEventListener('click', function() {
-            const data = {
-                check_in: getQueryParam('check_in'),
-                check_out: getQueryParam('check_out'),
-                fullname: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('mobileNumber').value,
-                bed_type: document.getElementById('bedType').value
-            };
-
-            fetch('save_booking.php', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-})
-.then(response => response.json())
-.then(data => {
-    if (data.status === "success") {
-        alert(data.message);
-        // Jika berhasil, pindah ke pay.php
-        window.location.href = 'pay.php';
-    } else {
-        alert(data.message);
+<script>
+    // Function to    // Function to get query parameter
+    function getQueryParam(param) {
+        let urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
     }
-})
-.catch(error => {
-    console.error('Error:', error);
-});
 
+    // Retrieve booking details from URL parameters
+    document.getElementById('occupancy').innerHTML = "Occupancy: 1 room";
+    document.getElementById('check-in-out').innerHTML = `Check-in: ${getQueryParam('check_in')} - 3:00 PM<br>Check-out: ${getQueryParam('check_out')} - 12:00 PM`;
+    document.getElementById('room-type').innerHTML = getQueryParam('room_type');
+    document.getElementById('room-price').innerHTML = `Room Price: Rp ${getQueryParam('price')}`;
+    document.getElementById('room-type-price').innerHTML = `${getQueryParam('room_type')}`;
+    document.getElementById('other-taxes').innerHTML = `Other Taxes and Fees: Rp ${getQueryParam('price')}`;
+    document.getElementById('total-price').innerHTML = `Total Price: Rp ${2 * getQueryParam('price')}`;
 
-            document.getElementById('confirmationOverlay').style.display = 'none';
+    // Overlay handling
+    document.getElementById('continueButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('confirmationOverlay').style.display = 'flex';
+    });
+
+    document.getElementById('proceedButton').addEventListener('click', function() {
+        const data = {
+            check_in: getQueryParam('check_in'),
+            check_out: getQueryParam('check_out'),
+            fullname: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('mobileNumber').value,
+            bed_type: document.getElementById('bedType').value,
+            payment_method: document.getElementById('paymentMethod').value
+        };
+
+        fetch('save_booking.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert(data.message);
+                // Jika berhasil, pindah ke pay.php
+                window.location.href = 'payment_detail.html';
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
-    </script>
-    <script src="../php/dropdown.js"></script> <!-- Include JavaScript file -->
+
+        document.getElementById('confirmationOverlay').style.display = 'none';
+    });
+</script>
+<script src="../php/dropdown.js"></script> <!-- Include JavaScript file -->
 </body>
 </html>
