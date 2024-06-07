@@ -6,9 +6,7 @@ if (!isset($_SESSION['login_user'])) {
 
 include('Koneksi.php');
 
-// Fetch data for dashboard
-$monthly_earnings = 0; // Dummy value, calculate based on your needs
-$annual_earnings = 0; // Dummy value, calculate based on your needs
+
 $user_count = $conn->query("SELECT COUNT(*) as count FROM users")->fetch_assoc()['count'];
 
 if (!$_SESSION['is_admin']) {
@@ -33,19 +31,13 @@ if (!$_SESSION['is_admin']) {
         </nav>
     </header>
     <div class="sidebar">
-        <a href="dashboard.php"><img src="../IMG/material-symbols_dashboard-outline.svg" alt="Dashboard">Dashboard<img src="../IMG/oui_arrow-up.svg" alt="" class="arrow"></a>
+        <a href="dashboard.php"><img src="../IMG/material-symbols_dashboard-outline.svg" alt="Dashboard">Dashboard</a>
         <a href="manage_room.php"><img src="../IMG/ic_baseline-room-preferences.svg" alt="Rooms">Kelola Kamar</a>
         <a href="manage_users.php"><img src="../IMG/fa6-solid_user-group.svg" alt="Users">Kelola Pengguna</a>
         <a href="manage_history.php"><img src="../IMG/material-symbols_history.svg" alt="History">Kelola Riwayat</a>
     </div>
     <main>
         <h2>Dashboard</h2>
-        <div class="card">
-            <p>Monthly Earnings: <br>Rp.<?php echo $monthly_earnings; ?> <img src="../IMG/lets-icons_date-fill.svg" alt="Date"> </p>
-        </div>
-        <div class="card">
-            <p>Annual Earnings: <br>Rp.<?php echo $annual_earnings; ?> <img src="../IMG/material-symbols_attach-money.svg" alt="Money"></p>
-        </div>
         <div class="card">
             <p>Total Registered Users: <br> <?php echo $user_count; ?> <img src="../IMG/heroicons_user-group-16-solid.svg" alt="Users"></p>
         </div>

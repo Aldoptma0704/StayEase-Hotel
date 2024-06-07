@@ -14,14 +14,15 @@
             <li class="spacer"></li>
             <li><a href="../php/HomePage.php" class="home" id="Home">Home</a></li>
             <li><a href="../php/history.php" class="history">History</a></li>
+            <li><a href="../php/search_results.php" class="booking">Booking</a></li>
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">
               <a href="../php/HomePage.php">Home</a>
               <a href="../HTML/ChangeAccount.php">Profil</a>
-              <a href="../HTML/change_password.php">Contact</a>
+              <a href="../HTML/change_password.php">Change Password</a>
               <a href="../php/history.php">Riwayat Booking</a>
-              <a href="login.php">Keluar</a>
+              <a href="../php/login.php">Keluar</a>
           </div>
     </nav>
     </header>

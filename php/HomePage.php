@@ -63,12 +63,13 @@ $conn->close();
             <li class="spacer"></li>
             <li><a href="HomePage.php" class="home" id="Home">Home</a></li>
             <li><a href="history.php" class="history">History</a></li>
+            <li><a href="search_results.php" class="booking">Booking</a></li>
         </ul>
         <img src="../IMG/icon.svg" class="icon" id="dropdown-icon">
         <div class="dropdown" id="dropdown-menu">
               <a href="HomePage.php">Home</a>
               <a href="../HTML/ChangeAccount.php">Profil</a>
-              <a href="../HTML/change_password.php">Contact</a>
+              <a href="../HTML/change_password.php">Change Password</a>
               <a href="history.php">Riwayat Booking</a>
               <a href="login.php">Keluar</a>
           </div>
@@ -82,59 +83,46 @@ $conn->close();
   <span class="next">&gt;</span>
   <img class="lightbox-image" src="../IMG/Slide.svg" alt="Slide">
 </div>
-  
 
-<div class="header">
-  <h2 style="margin-top: 100px;">StayEase Hotel Lampung</h2>
-  <img style="margin-top: 100px;" class="star-image" src="../img/Star.png" alt="Star" width="20" height="20">
-</div>
-<div class="hotel-details">
-  <div class="detail-item">
-    <img src="../img/Pin.svg" alt="Address">
-    <p><span>Jl. Kesambi No.7, Lempongsari, Gajah Terbang, Bandar Lampung 50231, Lampung, Indonesia |</span></p>
-  </div>
-  <div class="detail-item">
-    <img src="../img/Phone.svg" alt="Phone">
-    <p>+62 721 1234567|</p>
-  </div>
-  <div class="detail-item">
-    <img src="../img/Message.svg" alt="Email">
-    <p>stayease.lampung@stayease.com</p>
-  </div>
-</div>
+<div class="hotel-info">
+        <div class="carousel">
+            <div class="image-container">
+                <img src="../img/Slide.svg" alt="Hotel Image" class="lightbox-trigger">
+                <div class="lightbox">
+                    <span class="prev">&#10094;</span>
+                    <img src="Slide.svg" alt="Hotel Image" class="lightbox-image">
+                    <span class="next">&#10095;</span>
+                    <p>Another Room</p>
+                </div>
+            </div>
 
-<div class="form-container">
-  <form action="search_results.php" method="POST">
-    <div class="form-group">
-        <label for="check-in">Check-in</label>
-        <div>
-            <img src="../img/Calender.svg" alt="Calendar Logo" class="calendar-logo">
-            <input type="date" id="check-in" name="check_in" value="2024-01-01">
+            <div class="image-container">
+                <img src="../img/slide2.svg" alt="Hotel Image" class="lightbox-trigger">
+                <div class="lightbox">
+                    <span class="prev">&#10094;</span>
+                    <img src="slide2.svg" alt="Hotel Image" class="lightbox-image">
+                    <p>Another Room</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hotel-details">
+            <h2>StayEase Hotel Lampung</h2>
+            <img src="../IMG/Group 19.png" alt="Star" class="star-image">
+            <div class="detail-item">
+                <img src="../IMG/Message.svg" alt="Email">
+                <p>stayease.lampung@stayease.com</p>
+            </div>
+            <div class="detail-item">
+                <img src="../IMG/Vector 189.svg" alt="Phone">
+                <p>+62 721 12345667</p>
+            </div>
+            <div class="detail-item">
+                <img src="../IMG/Pin.svg" alt="Address">
+                <p>Jl. Kesambi No.7, Lempongsari,<br>Gajah Terbang, Bandar Lampung 50231<br>Lampung, Indonesia</p>
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <label for="check-out">Check-out</label>
-        <div>
-            <img src="../img/Calender.svg" alt="Calendar Logo" class="calendar-logo">
-            <input type="date" id="check-out" name="check_out" value="2024-01-02">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="rooms">Rooms</label>
-        <select id="rooms" name="rooms">
-            <option value="1">Superior Room</option>
-            <option value="2">Deluxe Room</option>
-            <option value="3">Junior Room</option>
-            <option value="4">Executive Suite</option>
-            <option value="5">Executive Studio</option>
-        </select>
-    </div>
-
-    <button type="submit" class="search-button">SEARCH</button>
-  </form>
-</div>
 
 
 <div class="welcome_section">
