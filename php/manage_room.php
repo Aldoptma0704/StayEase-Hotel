@@ -26,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $type = $_POST['type'];
     $price = $_POST['price'];
     $availability = $_POST['availability'];
+    $bed_type = $_POST['bed_type'];
+    $max_guests = $_POST['max_guests'];
+    $area = $_POST['area'];
+    $description = $_POST['description'];
     $image_paths = [];
 
     // Handle multiple image uploads
@@ -57,15 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $image_paths = implode(',', $image_paths);
         }
 
-        $stmt = $conn->prepare("UPDATE rooms SET room_type=?, price_per_night=?, availability=?, image=? WHERE id=?");
-        $stmt->bind_param("sdisi", $type, $price, $availability, $image_paths, $room_id);
+        $stmt = $conn->prepare("UPDATE rooms SET room_type=?, price_per_night=?, availability=?, bed_type=?, max_guests=?, area=?, description=?, image=? WHERE id=?");
+        $stmt->bind_param("sdisidiss", $type, $price, $availability, $bed_type, $max_guests, $area, $description, $image_paths, $room_id);
         $stmt->execute();
         $stmt->close();
+        
     } else {
         // Insert new room
         $image_paths = implode(',', $image_paths);
-        $stmt = $conn->prepare("INSERT INTO rooms (room_type, price_per_night, availability, image) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sdis", $type, $price, $availability, $image_paths);
+        $stmt = $conn->prepare("INSERT INTO rooms (room_type, price_per_night, availability, bed_type, max_guests, area, description, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sdisidss", $type, $price, $availability, $bed_type, $max_guests, $area, $description, $image_paths);
         $stmt->execute();
         $room_id = $stmt->insert_id;
         $stmt->close();
@@ -140,7 +145,7 @@ if (isset($_GET['edit'])) {
     <div class="sidebar">
         <a href="dashboard.php"><img src="../IMG/material-symbols_dashboard-outline.svg" alt="Dashboard">Dashboard</a>
         <a href="manage_room.php"><img src="../IMG/ic_baseline-room-preferences.svg" alt="Rooms">Kelola Kamar</a>
-        <a href="manage_users.php"><img src="../IMG/fa6-solid_user-group.svg" alt="Users">Kelola Pengguna</a>
+        <a href="manage_users.php"><img src="../IMG/fa6-solid_user-group.svg" alt="Users">Kelola Tamu</a>
         <a href="manage_history.php"><img src="../IMG/material-symbols_history.svg" alt="History">Kelola Riwayat</a>
     </div>
     <main>
@@ -148,128 +153,129 @@ if (isset($_GET['edit'])) {
         <div class="container-fluid">
             <div class="col-lg-12">
                 <div class="row">
-                    <!-- Room Form Panel -->
-                    <div class="col-md-4">
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <div class="card">
-                                <div class="card-header">
-                                    Room Form
-                                </div>
-                                <div class="card-body">
-                                    <input type="hidden" name="room_id" value="<?php echo $edit_room ? $edit_room['id'] : ''; ?>">
-                                    <div class="form-group">
-                                        <label for="type">Type</label>
-                                        <select class="form-control custom-select" id="type" name="type">
-                                            <option value="Superior Room" <?php if($edit_room && $edit_room['room_type'] == 'Superior Room') echo 'selected'; ?>>Superior Room</option>
-                                            <option value="Deluxe Room" <?php if($edit_room && $edit_room['room_type'] == 'Deluxe Room') echo 'selected'; ?>>Deluxe Room</option>
-                                            <option value="Junior Room" <?php if($edit_room && $edit_room['room_type'] == 'Junior Room') echo 'selected'; ?>>Junior Room</option>
-                                            <option value="Executive Suite" <?php if($edit_room && $edit_room['room_type'] == 'Executive Suite') echo 'selected'; ?>>Executive Suite</option>
-                                            <option value="Executive Studio" <?php if($edit_room && $edit_room['room_type'] == 'Executive Studio') echo 'selected'; ?>>Executive Studio</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="price">Price</label>
-                                        <input type="number" class="form-control" id="price" name="price" placeholder="Enter room price" value="<?php echo $edit_room ? $edit_room['price_per_night'] : ''; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="availability">Availability</label>
-                                        <input type="number" class="form-control" id="availability" name="availability" placeholder="Enter room availability" value="<?php echo $edit_room ? $edit_room['availability'] : ''; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="image">Images</label>
-                                        <input type="file" class="form-control" id="image" name="images[]" multiple>
-                                        <input type="hidden" name="existing_images" value="<?php echo $edit_room ? $edit_room['image'] : ''; ?>">
-                                        <?php if ($edit_room && $edit_room['image']): ?>
-                                            <?php 
-                                                $images = explode(',', $edit_room['image']); 
-                                                foreach ($images as $img): 
-                                            ?>
-                                                <img src="<?php echo $img; ?>" alt="Room Image" class="room-image">
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                    <!-- Ketersediaan Kamar Berdasarkan Tanggal -->
-                                    <div class="form-group">
-                                        <label for="dates">Dates (YYYY-MM-DD)</label>
-                                        <input type="text" class="form-control" id="dates" name="dates[]" placeholder="Enter dates separated by commas">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="availabilities">Availabilities (1 for available, 0 for not available)</label>
-                                        <input type="text" class="form-control" id="availabilities" name="availabilities[]" placeholder="Enter availabilities separated by commas">
-                                    </div>
-                                    <!-- Akhir dari Ketersediaan Kamar Berdasarkan Tanggal -->
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Room Form Panel -->
-
-                    <!-- Room List Panel -->
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Type</th>
-                                            <th>Price</th>
-                                            <th>Availability</th>
-                                            <th>Images</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php while($row = $rooms->fetch_assoc()): ?>
-                                        <tr>
-                                            <td><?php echo $row['id']; ?></td>
-                                            <td><?php echo $row['room_type']; ?></td>
-                                            <td><?php echo $row['price_per_night']; ?></td>
-                                            <td><?php echo $row['availability']; ?></td>
-                                            <td>
-                                                <?php 
-                                                    $images = explode(',', $row['image']); 
-                                                    foreach ($images as $img): 
-                                                ?>
-                                                    <img src="<?php echo $img; ?>" alt="Room Image" class="room-image">
-                                                <?php endforeach; ?>
-                                            </td>
-                                            <td>
-                                                <a href="manage_room.php?edit=<?php echo $row['id']; ?>" class="btn btn-warning">Edit</a>
-                                                <button onclick="confirmDelete(<?php echo $row['id']; ?>)" class="btn btn-danger">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <?php endwhile; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Room List Panel -->
+                <!-- Room Form Panel -->
+<div class="col-md-4">
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="card">
+            <div class="card-header">
+                Room Form
+            </div>
+            <div class="card-body">
+                <input type="hidden" name="room_id" value="<?php echo $edit_room ? $edit_room['id'] : ''; ?>">
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select class="form-control custom-select" id="type" name="type">
+                        <option value="Superior Room" <?php if($edit_room && $edit_room['room_type'] == 'Superior Room') echo 'selected'; ?>>Superior Room</option>
+                        <option value="Deluxe Room" <?php if($edit_room && $edit_room['room_type'] == 'Deluxe Room') echo 'selected'; ?>>Deluxe Room</option>
+                        <option value="Junior Room" <?php if($edit_room && $edit_room['room_type'] == 'Junior Room') echo 'selected'; ?>>Junior Room</option>
+                        <option value="Executive Suite" <?php if($edit_room && $edit_room['room_type'] == 'Executive Suite') echo 'selected'; ?>>Executive Suite</option>
+                        <option value="Executive Studio" <?php if($edit_room && $edit_room['room_type'] == 'Executive Studio') echo 'selected'; ?>>Executive Studio</option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter room price" value="<?php echo $edit_room ? $edit_room['price_per_night'] : ''; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="availability">Availability</label>
+                    <input type="number" class="form-control" id="availability" name="availability" placeholder="Enter room availability" value="<?php echo $edit_room ? $edit_room['availability'] : ''; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="bed_type">Bed Type</label>
+                    <input type="text" class="form-control" id="bed_type" name="bed_type" placeholder="Enter bed type" value="<?php echo $edit_room ? $edit_room['bed_type'] : ''; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="max_guests">Max Guests</label>
+                    <input type="number" class="form-control" id="max_guests" name="max_guests" placeholder="Enter max guests" value="<?php echo $edit_room ? $edit_room['max_guests'] : ''; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="area">Area (sqm)</label>
+                    <input type="number" step="0.01" class="form-control" id="area" name="area" placeholder="Enter area in sqm" value="<?php echo $edit_room ? $edit_room['area'] : ''; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3"><?php echo $edit_room ? $edit_room['description'] : ''; ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image">Images</label>
+                    <input type="file" class="form-control" id="image" name="images[]" multiple>
+                    <input type="hidden" name="existing_images" value="<?php echo $edit_room ? $edit_room['image'] : ''; ?>">
+                    <?php if ($edit_room && $edit_room['image']): ?>
+                        <?php 
+                            $images = explode(',', $edit_room['image']); 
+                            foreach ($images as $img): 
+                        ?>
+                            <img src="<?php echo $img; ?>" alt="Room Image" class="room-image">
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <!-- Ketersediaan Kamar Berdasarkan Tanggal -->
+                <div class="form-group">
+                    <label for="dates">Dates (YYYY-MM-DD)</label>
+                    <input type="text" class="form-control" id="dates" name="dates[]" placeholder="Enter dates separated by commas">
+                </div>
+                <div class="form-group">
+                    <label for="availabilities">Availabilities (1 for available, 0 for not available)</label>
+                    <input type="text" class="form-control" id="availabilities" name="availabilities[]" placeholder="Enter availabilities separated by commas">
+                </div>
+                <!-- Akhir dari Ketersediaan Kamar Berdasarkan Tanggal -->
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
-    </main>
-
-    <!-- Popup container -->
-    <div id="deletePopup" class="popup-container">
-        <div class="popup-content">
-            <h2>Apakah Anda yakin ingin menghapus kamar ini?</h2>
-            <div class="button-container">
-                <button id="confirmDeleteButton">Yakin</button>
-                <button onclick="closePopup()">Tidak</button>
-            </div>
+    </form>
+</div>
+<!-- Room Form Panel -->
+<!-- Room List Panel -->
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                        <th>Bed Type</th>
+                        <th>Max Guests</th>
+                        <th>Area</th>
+                        <th>Description</th>
+                        <th>Images</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($row = $rooms->fetch_assoc()): ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['room_type']; ?></td>
+                        <td><?php echo $row['price_per_night']; ?></td>
+                        <td><?php echo $row['availability']; ?></td>
+                        <td><?php echo $row['bed_type']; ?></td>
+                        <td><?php echo $row['max_guests']; ?></td>
+                        <td><?php echo $row['area']; ?></td>
+                        <td><?php echo $row['description']; ?></td>
+                        <td>
+                            <?php 
+                                $images = explode(',', $row['image']); 
+                                foreach ($images as $img): 
+                            ?>
+                                <img src="<?php echo $img; ?>" alt="Room Image" class="room-image">
+                            <?php endforeach; ?>
+                        </td>
+                        <td>
+                            <a href="manage_room.php?edit=<?php echo $row['id']; ?>" class="btn btn-warning">Edit</a>
+                            <button onclick="confirmDelete(<?php echo $row['id']; ?>)" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <script>
-        // JavaScript untuk input tanggal dan ketersediaan
-        document.addEventListener('DOMContentLoaded', function() {
-            // Implementasi tambahan jika diperlukan
-        });
-    </script>
+</div>
+<!-- Room List Panel -->
 </body>
 </html>

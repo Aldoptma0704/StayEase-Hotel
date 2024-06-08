@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav>
         <img src="../IMG/Logo.png" alt="Logo">
         <ul>
-          <li><button class="login-button" id="loginBtn">LOGIN</button></li>
+          <li><button class="login-button" id="loginBtn"><a href="login.php">Login</a></button></li>
           <li><button class="signup-button">SIGN UP</button></li>
       </ul>          
     </nav>

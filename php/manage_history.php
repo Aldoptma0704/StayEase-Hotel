@@ -19,17 +19,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_booking'])) {
     }
 }
 
+// Jika ada request POST untuk menghapus pesanan
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_booking'])) {
+    // Ambil ID pemesanan yang akan dihapus
+    $booking_id = $_POST['delete_booking'];
+
+    // Query untuk menghapus pemesanan
+    $delete_sql = "DELETE FROM bookings WHERE id = $booking_id";
+    
+    if ($conn->query($delete_sql) === TRUE) {
+        // Redirect kembali ke halaman ini setelah berhasil menghapus
+        header("Location: manage_history.php");
+        exit();
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
+}
+
 // Query untuk mengambil data dari tabel bookings
 $sql = "SELECT * FROM bookings";
 $result = $conn->query($sql);
 ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Kelola Riwayat</title>
     <link rel="stylesheet" type="text/css" href="../CSS/manage_history.css">
+    <script>
+    function deleteBooking(bookingId) {
+        if (confirm("Are you sure you want to delete this booking?")) {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '';
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'delete_booking';
+            input.value = bookingId;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -44,7 +78,7 @@ $result = $conn->query($sql);
     <div class="sidebar">
         <a href="dashboard.php"><img src="../IMG/material-symbols_dashboard-outline.svg" alt="Dashboard">Dashboard</a>
         <a href="manage_room.php"><img src="../IMG/ic_baseline-room-preferences.svg" alt="Rooms">Kelola Kamar</a>
-        <a href="manage_users.php"><img src="../IMG/fa6-solid_user-group.svg" alt="Users">Kelola Pengguna</a>
+        <a href="manage_users.php"><img src="../IMG/fa6-solid_user-group.svg" alt="Users">Kelola Tamu</a>
         <a href="manage_history.php"><img src="../IMG/material-symbols_history.svg" alt="History">Kelola Riwayat</a>
     </div>
     <h2>Kelola Riwayat</h2>
@@ -78,7 +112,7 @@ $result = $conn->query($sql);
                 echo "<form method='post'>";
                 echo "<input type='hidden' name='booking_id' value='" . $row["id"] . "'>";
                 echo "<button type='submit' name='confirm_booking'>Confirm</button>"; // Tombol "Confirm" dengan tipe submit
-                echo "<button onclick=\"deleteBooking(" . $row["id"] . ")\">Delete</button>"; // Tombol "Delete"
+                echo "<button type='button' onclick=\"deleteBooking(" . $row["id"] . ")\">Delete</button>"; // Tombol "Delete"
                 echo "</form>";
                 echo "</td>"; // Akhiri kolom untuk tombol aksi
                 echo "</tr>";
