@@ -11,11 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_booking'])) {
     $update_sql = "UPDATE bookings SET payment_status = 'Confirmed' WHERE id = $booking_id";
     
     if ($conn->query($update_sql) === TRUE) {
-        // Redirect kembali ke halaman ini setelah berhasil mengkonfirmasi
-        header("Location: manage_history.php");
+        echo json_encode(['status' => 'success', 'booking_id' => $booking_id]);
         exit();
     } else {
-        echo "Error updating record: " . $conn->error;
+        echo json_encode(['status' => 'error', 'message' => $conn->error]);
+        exit();
     }
 }
 
@@ -125,6 +125,26 @@ $result = $conn->query($sql);
             modal.style.display = "none";
         }
     }
+
+    function confirmBooking(button, bookingId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.status === 'success') {
+                    button.textContent = 'Confirmed';
+                    button.disabled = true;
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            }
+        };
+
+        xhr.send("confirm_booking=true&booking_id=" + bookingId);
+    }
     </script>
 </head>
 <body>
@@ -162,6 +182,7 @@ $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             // Tampilkan setiap baris data sebagai row dalam tabel
             while($row = $result->fetch_assoc()) {
+                $isConfirmed = $row["payment_status"] === 'Confirmed';
                 echo "<tr>";
                 echo "<td>" . $row["id"] . "</td>";
                 echo "<td>" . $row["check_in"] . "</td>";
@@ -175,14 +196,14 @@ $result = $conn->query($sql);
                 echo "<td>"; // Mulai kolom untuk tombol aksi
                 echo "<form method='post'>";
                 echo "<input type='hidden' name='booking_id' value='" . $row["id"] . "'>";
-                echo "<button type='submit' name='confirm_booking'>Confirm</button>"; // Tombol "Confirm" dengan tipe submit
+                echo "<button type='button' " . ($isConfirmed ? "disabled" : "") . " onclick=\"confirmBooking(this, " . $row["id"] . ")\">" . ($isConfirmed ? "Confirmed" : "Confirm") . "</button>"; // Tombol "Confirm" dengan tipe submit
                 echo "<button type='button' onclick=\"deleteBooking(" . $row["id"] . ")\">Delete</button>"; // Tombol "Delete"
                 echo "</form>";
                 echo "</td>"; // Akhiri kolom untuk tombol aksi
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='9'>No bookings found.</td></tr>";
+            echo "<tr><td colspan='10'>No bookings found.</td></tr>";
         }
         ?>
     </table>
