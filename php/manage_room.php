@@ -48,23 +48,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // If updating an existing room, retain the old images and add new ones
     if (!empty($_POST['room_id'])) {
         $room_id = $_POST['room_id'];
+        
+        // Initialize $image_paths with existing images if no new images are provided
         if (empty($image_paths)) {
             $image_paths = $_POST['existing_images'];
         } else {
+            // Merge existing and new images if both are provided
             if (!empty($_POST['existing_images'])) {
                 $existing_images = explode(',', $_POST['existing_images']);
                 $image_paths = array_merge($existing_images, $image_paths);
             }
             $image_paths = implode(',', $image_paths);
         }
-
-        $stmt = $conn->prepare("UPDATE rooms SET room_type=?, price_per_night=?, availability=?, bed_type=?, max_guests=?, area=?, description=?, image=? WHERE id=?");
-        $stmt->bind_param("sdisidiss", $type, $price, $availability, $bed_type, $max_guests, $area, $description, $image_paths, $room_id);
-        $stmt->execute();
-        $stmt->close();
+    
+        // Sanitize input
+        $room_id = mysqli_real_escape_string($conn, $room_id);
+        $type = mysqli_real_escape_string($conn, $_POST['type']);
+        $price = mysqli_real_escape_string($conn, $_POST['price']);
+        $availability = mysqli_real_escape_string($conn, $_POST['availability']);
+        $bed_type = mysqli_real_escape_string($conn, $_POST['bed_type']);
+        $max_guests = mysqli_real_escape_string($conn, $_POST['max_guests']);
+        $area = mysqli_real_escape_string($conn, $_POST['area']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $image_paths = mysqli_real_escape_string($conn, $image_paths);
+    
+        // Construct SQL query
+        $query = "UPDATE rooms SET 
+                    room_type='$type', 
+                    price_per_night='$price', 
+                    availability='$availability', 
+                    bed_type='$bed_type', 
+                    max_guests='$max_guests', 
+                    area='$area', 
+                    description='$description', 
+                    image='$image_paths' 
+                  WHERE id='$room_id'";
+    
+        // Execute query
+        if (mysqli_query($conn, $query)) {
+            echo "Room updated successfully";
+        } else {
+            echo "Error updating room: " . mysqli_error($conn);
+        }    
         
     } else {
         // Insert new room
@@ -119,7 +146,7 @@ if (isset($_GET['edit'])) {
     <title>Kelola Kamar</title>
     <link rel="stylesheet" type="text/css" href="../CSS/manage_room.css">
     <!-- JavaScript for confirmation dialog -->
-    <script>
+    <!-- <script>
         function confirmDelete(id) {
             document.getElementById('deletePopup').style.display = 'flex';
             document.getElementById('confirmDeleteButton').onclick = function() {
@@ -130,7 +157,7 @@ if (isset($_GET['edit'])) {
         function closePopup() {
             document.getElementById('deletePopup').style.display = 'none';
         }
-    </script>
+    </script> -->
 </head>
 <body>
     <header>
@@ -212,7 +239,7 @@ if (isset($_GET['edit'])) {
                 <!-- Ketersediaan Kamar Berdasarkan Tanggal -->
                 <div class="form-group">
                     <label for="dates">Dates (YYYY-MM-DD)</label>
-                    <input type="text" class="form-control" id="dates" name="dates[]" placeholder="Enter dates separated by commas">
+                    <input type="date" class="form-control" id="dates" name="dates[]" placeholder="Enter dates separated by commas">
                 </div>
                 <div class="form-group">
                     <label for="availabilities">Availabilities (1 for available, 0 for not available)</label>
@@ -274,8 +301,35 @@ if (isset($_GET['edit'])) {
                 </tbody>
             </table>
         </div>
+        <div id="deletePopup" class="popup-container">
+        <div class="popup-content">
+            <h2>Apakah Anda yakin ingin menghapusnya?</h2>
+            <div class="button-container">
+                <button id="confirmDeleteButton">Yakin</button>
+                <button onclick="closePopup()">Tidak</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function openPopup() {
+        document.getElementById("deletePopup").style.display = "flex";
+    }
+
+    function closePopup() {
+        document.getElementById("deletePopup").style.display = "none";
+    }
+
+    function confirmDelete(id) {
+        openPopup();
+        document.getElementById("confirmDeleteButton").onclick = function() {
+            window.location.href = `manage_room.php?delete=${id}`;
+        }
+    }
+</script>
     </div>
 </div>
+
 <!-- Room List Panel -->
 </body>
 </html>
