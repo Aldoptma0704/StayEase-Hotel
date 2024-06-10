@@ -92,6 +92,7 @@ $result = $conn->query($sql);
             <th>Phone</th>
             <th>Bed Type</th>
             <th>Booking Date</th>
+            <th>Bukti Pembayaran</th>
             <th>Actions</th>
         </tr>
         <?php
@@ -108,6 +109,7 @@ $result = $conn->query($sql);
                 echo "<td>" . $row["phone"] . "</td>";
                 echo "<td>" . $row["bed_type"] . "</td>";
                 echo "<td>" . $row["booking_date"] . "</td>";
+                echo "<td><img src='../HTML/uploads/" . $row["bukti_pembayaran"] . "' alt='Bukti Pembayaran' width='100'></td>";
                 echo "<td>"; // Mulai kolom untuk tombol aksi
                 echo "<form method='post'>";
                 echo "<input type='hidden' name='booking_id' value='" . $row["id"] . "'>";
