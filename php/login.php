@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect based on user role
                 if ($row['is_admin'] == 1) {
-                    header("Location: dashboard.php"); // Redirect to admin dashboard
+                    header("Location: manage_room.php"); // Redirect to admin dashboard
                 } else {
                     header("Location: HomePage.php"); // Redirect to user homepage
                 }
