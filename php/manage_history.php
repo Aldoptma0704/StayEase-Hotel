@@ -46,6 +46,49 @@ $result = $conn->query($sql);
 <head>
     <title>Kelola Riwayat</title>
     <link rel="stylesheet" type="text/css" href="../CSS/manage_history.css">
+    <style>
+        /* Style untuk modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
     <script>
     function deleteBooking(bookingId) {
         if (confirm("Are you sure you want to delete this booking?")) {
@@ -61,6 +104,25 @@ $result = $conn->query($sql);
             form.appendChild(input);
             document.body.appendChild(form);
             form.submit();
+        }
+    }
+
+    function openModal(imgSrc) {
+        var modal = document.getElementById("paymentModal");
+        var modalImg = document.getElementById("modalImage");
+        modal.style.display = "block";
+        modalImg.src = imgSrc;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("paymentModal");
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        var modal = document.getElementById("paymentModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     }
     </script>
@@ -109,7 +171,7 @@ $result = $conn->query($sql);
                 echo "<td>" . $row["phone"] . "</td>";
                 echo "<td>" . $row["bed_type"] . "</td>";
                 echo "<td>" . $row["booking_date"] . "</td>";
-                echo "<td><img src='../HTML/uploads/" . $row["bukti_pembayaran"] . "' alt='Bukti Pembayaran' width='100'></td>";
+                echo "<td><img src='../HTML/uploads/" . $row["bukti_pembayaran"] . "' alt='Bukti Pembayaran' width='100' onclick=\"openModal('../HTML/uploads/" . $row["bukti_pembayaran"] . "')\"></td>";
                 echo "<td>"; // Mulai kolom untuk tombol aksi
                 echo "<form method='post'>";
                 echo "<input type='hidden' name='booking_id' value='" . $row["id"] . "'>";
@@ -125,5 +187,13 @@ $result = $conn->query($sql);
         ?>
     </table>
     <a href="dashboard.php">Back to Dashboard</a>
+
+    <!-- Modal untuk menampilkan gambar bukti pembayaran -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" class="modal-img" src="" alt="Bukti Pembayaran">
+        </div>
+    </div>
 </body>
 </html>
