@@ -70,10 +70,21 @@ $result = $conn->query($sql);
                     // Kolom untuk status pembayaran
                     echo "<td>" . $row["payment_status"] . "</td>";
                     echo "<td>";
-                    echo "<button onclick=\"refundBooking(" . $row["id"] . ")\">Refund</button>";
+
+                    // Cek apakah tanggal check-in sudah berlalu
+                    $currentDate = date("Y-m-d");
+                    $checkInDate = date("Y-m-d", strtotime($row["check_in"]));
+
+                    // Debug output untuk memeriksa tanggal
+                    echo "<!-- Debug: currentDate = $currentDate, checkInDate = $checkInDate -->";
+
+                    if ($currentDate < $checkInDate) {
+                        echo "<button onclick=\"refundBooking(" . $row["id"] . ")\">Refund</button>";
+                    } else {
+                        echo "<button disabled>Refund</button>";
+                    }
                     echo "</td>";
                     echo "</tr>";
-                    
                 }
             } else {
                 echo "<tr><td colspan='10'>No bookings found.</td></tr>";
@@ -84,27 +95,26 @@ $result = $conn->query($sql);
     <!-- Tambahkan link JavaScript Anda di sini -->
     <script>
         // Fungsi JavaScript untuk melakukan refund
-        // Fungsi JavaScript untuk melakukan refund
         function refundBooking(bookingId) {
-        // Konfirmasi refund dari pengguna
-        if(confirm("Apakah Anda yakin ingin melakukan refund untuk booking ID " + bookingId + "?")) {
-            // Kirim AJAX request untuk memanggil skrip PHP refund
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "refund.php", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    // Tampilkan pesan keberhasilan refund dari respons PHP
-                    alert(xhr.responseText);
-                    // Refresh halaman untuk memperbarui riwayat
-                    window.location.reload();
-                }
-            };
-            // Kirim data booking_id ke skrip PHP refund
-            xhr.send("booking_id=" + bookingId);
+            // Konfirmasi refund dari pengguna
+            if (confirm("Apakah Anda yakin ingin melakukan refund untuk booking ID " + bookingId + "?")) {
+                // Kirim AJAX request untuk memanggil skrip PHP refund
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "refund.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // Tampilkan pesan keberhasilan refund dari respons PHP
+                        alert(xhr.responseText);
+                        // Refresh halaman untuk memperbarui riwayat
+                        window.location.reload();
+                    }
+                };
+                // Kirim data booking_id ke skrip PHP refund
+                xhr.send("booking_id=" + bookingId);
+            }
         }
-    }
     </script>
-     <script src="dropdown.js"></script> <!-- Include JavaScript file -->
+    <script src="dropdown.js"></script> <!-- Include JavaScript file -->
 </body>
 </html>

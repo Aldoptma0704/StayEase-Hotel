@@ -10,33 +10,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check_in = $_POST['check_in'];
     $check_out = $_POST['check_out'];
     $room_type = $_POST['rooms'];
+    
+    // Get today's date
+    $today = date('Y-m-d');
 
-    // SQL query
-    $sql = "SELECT * FROM rooms WHERE room_type = ? AND id NOT IN (
-                SELECT id FROM bookings 
-                WHERE (check_in <= ? AND check_out >= ?)
-            )";
+    // Check if check-in or check-out dates are in the past
+    if ($check_in < $today || $check_out < $today) {
+        $date_error = "Tanggal check-in atau check-out tidak valid.";
+    } else {
+        // SQL query
+        $sql = "SELECT * FROM rooms WHERE room_type = ? AND id NOT IN (
+                    SELECT id FROM bookings 
+                    WHERE (check_in <= ? AND check_out >= ?)
+                )";
 
-    // Prepared statement to prevent SQL injection
-    $stmt = $conn->prepare($sql);
+        // Prepared statement to prevent SQL injection
+        $stmt = $conn->prepare($sql);
 
-    // Check if the statement was prepared successfully
-    if ($stmt === false) {
-        die('Prepare failed: ' . htmlspecialchars($conn->error));
-    }
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+            die('Prepare failed: ' . htmlspecialchars($conn->error));
+        }
 
-    // Bind parameters
-    $stmt->bind_param("sss", $room_type, $check_out, $check_in);
+        // Bind parameters
+        $stmt->bind_param("sss", $room_type, $check_out, $check_in);
 
-    // Execute the query
-    $stmt->execute();
+        // Execute the query
+        $stmt->execute();
 
-    // Get the result
-    $result = $stmt->get_result();
+        // Get the result
+        $result = $stmt->get_result();
 
-    // Check for execution errors
-    if ($result === false) {
-        die('Execute failed: ' . htmlspecialchars($stmt->error));
+        // Check for execution errors
+        if ($result === false) {
+            die('Execute failed: ' . htmlspecialchars($stmt->error));
+        }
     }
 }
 ?>
@@ -106,41 +114,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="available-rooms" style="width: 100%">
     <div class="room-container" style="width: 100%">
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($result)) {
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $bookingUrl = "../HTML/Book Now.html?check_in=" . urlencode($check_in) . "&check_out=" . urlencode($check_out) . "&room_type=" . urlencode($row['room_type']) . "&price=" . urlencode($row['price_per_night']) . "&bed_type=" . urlencode($row['bed_type']) . "&max_guests=" . urlencode($row['max_guests']) . "&area=" . urlencode($row['area']);
-                    
-                    // Fetch and split image paths
-                    $image_paths = explode(',', $row['image']);
-                    ?>
-                    <div class="room-card">
-                        <div class="room-image">
-                            <?php foreach ($image_paths as $image): ?>
-                                <img src="<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($row['room_type']); ?> ">
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="room-details">
-                            <h2><?php echo htmlspecialchars($row['room_type']); ?></h2>
-                            <p class="description"><?php echo htmlspecialchars($row['description']); ?></p>
-                            <p class="price">Rp <?php echo htmlspecialchars($row['price_per_night']); ?> / night</p>
-                            <div class="features">
-                                <div class="feature"><p><?php echo htmlspecialchars($row['bed_type']); ?></p></div>
-                                <div class="feature"><p><?php echo htmlspecialchars($row['max_guests']); ?> guests</p></div>
-                                <div class="feature"><p><?php echo htmlspecialchars($row['area']); ?> m²</p></div>
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($date_error)) {
+                echo "<p style='color:red;'>$date_error</p>";
+            } elseif (isset($result)) {
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $bookingUrl = "../HTML/Book Now.html?check_in=" . urlencode($check_in) . "&check_out=" . urlencode($check_out) . "&room_type=" . urlencode($row['room_type']) . "&price=" . urlencode($row['price_per_night']) . "&bed_type=" . urlencode($row['bed_type']) . "&max_guests=" . urlencode($row['max_guests']) . "&area=" . urlencode($row['area']);
+                        
+                        // Fetch and split image paths
+                        $image_paths = explode(',', $row['image']);
+                        ?>
+                        <div class="room-card">
+                            <div class="room-image">
+                                <?php foreach ($image_paths as $image): ?>
+                                    <img src="<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($row['room_type']); ?> ">
+                                <?php endforeach; ?>
                             </div>
-                            <div class="buttons">
-                                <button><p>Shower</p></button>
-                                <button><p>Refrigerator</p></button>
-                                <button><p>Air conditioning</p></button>
+                            <div class="room-details">
+                                <h2><?php echo htmlspecialchars($row['room_type']); ?></h2>
+                                <p class="description"><?php echo htmlspecialchars($row['description']); ?></p>
+                                <p class="price">Rp <?php echo htmlspecialchars($row['price_per_night']); ?> / night</p>
+                                <div class="features">
+                                    <div class="feature"><p><?php echo htmlspecialchars($row['bed_type']); ?></p></div>
+                                    <div class="feature"><p><?php echo htmlspecialchars($row['max_guests']); ?> guests</p></div>
+                                    <div class="feature"><p><?php echo htmlspecialchars($row['area']); ?> m²</p></div>
+                                </div>
+                                <div class="buttons">
+                                    <button><p>Shower</p></button>
+                                    <button><p>Refrigerator</p></button>
+                                    <button><p>Air conditioning</p></button>
+                                </div>
+                                <a href="<?php echo $bookingUrl; ?>" class="book-now-button">BOOK NOW</a>
                             </div>
-                            <a href="<?php echo $bookingUrl; ?>" class="book-now-button">BOOK NOW</a>
                         </div>
-                    </div>
-                    <?php
+                        <?php
+                    }
+                } else {
+                    echo "<p>Tidak ada kamar yang tersedia untuk tanggal yang dipilih.</p>";
                 }
-            } else {
-                echo "<p>Tidak ada kamar yang tersedia untuk tanggal yang dipilih.</p>";
             }
         }
         ?>
