@@ -136,14 +136,6 @@
                 <option value="2 Twin Bed">2 Twin Bed</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="paymentMethod">Payment Method</label>
-            <select id="paymentMethod">
-                <option value="Credit Card">Credit Card</option>
-                <option value="Bank Transfer">Bank Transfer</option>
-                <option value="PayPal">PayPal</option>
-            </select>
-        </div>
         <div class="price-details">
             <div id="room-price">Room Price: Rp 99</div>
             <div>(1x) <span id="room-type-price">Superior Room</span> (1 night)</div>
@@ -194,7 +186,6 @@
             email: document.getElementById('email').value,
             phone: document.getElementById('mobileNumber').value,
             bed_type: document.getElementById('bedType').value,
-            payment_method: document.getElementById('paymentMethod').value
         };
 
         fetch('save_booking.php', {
